@@ -6,28 +6,29 @@
 /*   By: sservant <sservant@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 19:40:00 by sservant          #+#    #+#             */
-/*   Updated: 2025/12/04 20:56:16 by sservant         ###   ########lyon.fr   */
+/*   Updated: 2025/12/04 21:10:59 by sservant         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/auth/AuthContext";
 import ColorBends from '../components/utils/ColorBends';
 import ShinyText from '../components/utils/ShinyText';
 import TextPressure from '../components/utils/TextPressure';
 
 export default function Register() {
   const navigate = useNavigate();
+  const { register } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Register attempt:", { username, password, confirmPassword });
     if (password != confirmPassword) return;
-
-    navigate('/login');
+    const ok = await register(username, password);
+    if (ok) navigate("/");
   };
 
   return (
