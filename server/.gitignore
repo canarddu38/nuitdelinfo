@@ -1,6 +1,8 @@
 # Dépendances
 node_modules/
 
+database.db
+
 # Build / Distribution
 dist/
 build/
