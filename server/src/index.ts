@@ -4,6 +4,8 @@ import Database from "better-sqlite3";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
+import v8 = require("v8");
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
@@ -12,6 +14,7 @@ const port = 8080;
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 const secret = process.env.JWT_SECRET;
 const db = new Database("database.db");
@@ -31,6 +34,12 @@ app.post("/api/login", (req, res) => {
 	const user = db.prepare("SELECT * FROM users WHERE username = ? AND password = ?").get(username, hash);
 	if (!user)
 		return res.status(400).json({ success: false, message: "Invalid user" });
+	res.cookie("token", user.token, {
+        httpOnly: true,
+		secure: false,
+		sameSite: "lax",
+		maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 	return res.json({ success: true, token: user.token });
 });
 
@@ -42,20 +51,18 @@ app.post("/api/register", (req, res) => {
 	if (exists)
 		return res.status(400).json({ success: false, message: "User already exists" });
 	const hash = crypto.createHash("sha256").update(password).digest("base64");
-	const payload = { username };
+	const payload = { username: username };
 	const token = jwt.sign(payload, secret, { expiresIn: "20m" });
 	db.prepare("INSERT INTO users (username, password, token) VALUES (?, ?, ?)").run(username, hash, token);
 	return res.json({ success: true });
 });
 
 app.get("/api/me", (req, res) => {
-	const auth = req.headers.authorization;
-	if (!auth)
-		return res.status(401).json({ success: false });
-	const token = auth.split(" ")[1];
+	const token = req.cookies.token;
 	try {
-		const data = jwt.verify(token, secret);
-		return res.json({ success: true, user: data });
+		const data = jwt.decode(token, { complete: true }).payload;
+		const user = db.prepare("SELECT * FROM users WHERE username = ?").all(data.username) // /!\ critial vulnerability /!\
+		return res.json({ success: true, user: {username: user[0].username, id: user[0].id} });
 	} catch {
 		return res.status(401).json({ success: false });
 	}
