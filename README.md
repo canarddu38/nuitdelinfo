@@ -1,2 +1,3 @@
 # nuitdelinfo
-Repo pour la nuit de l'info
+
+⚠️ NE PAS PUSH AUTRE PART QUE SUR VOTRE BRANCHE DE PROJET ⚠️
