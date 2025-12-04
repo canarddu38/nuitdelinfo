@@ -6,7 +6,7 @@
 /*   By: sservant <sservant@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 18:45:00 by sservant          #+#    #+#             */
-/*   Updated: 2025/12/04 20:57:23 by sservant         ###   ########lyon.fr   */
+/*   Updated: 2025/12/04 22:05:47 by sservant         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,8 @@ export default function Login() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login attempt:", { username, password });
     const ok = await login(username, password);
-    if (ok) navigate("/");
+    if (ok) navigate("/dashboard");
   };
 
   return (

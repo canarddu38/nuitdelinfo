@@ -2,7 +2,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-
+  "overrides": {
+    "@types/react": "$devDependencies.@types/react"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -14,7 +16,9 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@react-three/fiber": "^8.18.0",
     "gsap": "^3.13.0",
+    "lucide-react": "^0.555.0",
     "motion": "^12.23.24",
     "ogl": "^1.0.11",
     "react": "^18.3.1",

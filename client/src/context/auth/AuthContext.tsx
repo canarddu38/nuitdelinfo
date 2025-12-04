@@ -3,10 +3,7 @@ import { getCookie, setCookie, deleteCookie } from "../../utils";
 
 interface User {
   token: string;
-  name?: string;
-  campus?: string;
-  picture?: string;
-  username?: string;
+
 }
 
 interface AuthContextType {
@@ -26,46 +23,46 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const res = await fetch(`https://${import.meta.env.VITE_IPBACKEND}:8080/api/me`, {
-          credentials: "include",
+        console.log("sended");
+        const res = await fetch(`/api/me`, {
+          credentials: "include"
         });
-        
         if (res.ok) {
           const data = await res.json();
-          const tokenFromCookie = getCookie("token") || "";
-          if (data && typeof data === "object") {
-            setUser({
-              token: tokenFromCookie,
-              name: (data as any).name,
-              campus: (data as any).campus,
-              picture: (data as any).picture,
-              username: (data as any).username,
-            });
-          } else {
-            deleteCookie("token");
-            setUser(null);
-          }
+          setUser(data.user);
         } else {
-          const tokenFromCookie = getCookie("token");
-          if (tokenFromCookie) deleteCookie("token");
           setUser(null);
         }
       } catch (err) {
-        console.log("Utilisateur non connecté", err);
-        deleteCookie("token");
+        console.error(err);
         setUser(null);
       } finally {
         setLoading(false);
       }
     };
-
     checkUser();
   }, []);
 
+
   const login = async (username: string, password: string) => {
-    window.location.href=import.meta.env.VITE_AUTH42;
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+        
+
+        if (res.ok) {
+          return (true);
+      } 
+    } catch (err) {
+        console.log("Utilisateur non connecté", err);
+      }
     return false;
   };
+
 
   const register = async (username: string, password: string) => {
       try {
@@ -80,17 +77,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         
         if (res.ok) {
           const data = await res.json();
-          const tokenFromCookie = getCookie("token") || "";
-          if (data && typeof data === "object") {
-            setUser({
-              token: tokenFromCookie,
-              name: (data as any).name,
-              campus: (data as any).campus,
-              picture: (data as any).picture,
-              username: (data as any).username,
-            });
+          if (data && data.token) {
+             setCookie("token", data.token);
+             setUser({ token: data.token });
           }
-      } 
+          return (true);
+        } else {
+          return (false);
+        }
     } catch (err) {
         console.log("Utilisateur non connecté", err);
       }
@@ -100,10 +94,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = async () => {
     try {
       // appelle le backend pour invalider la session / cookie httpOnly
-      await fetch(`https://${import.meta.env.VITE_IPBACKEND}:/api/logout`, {
+      await fetch(`/api/logout`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify({token: user?.token}),
+        headers: {
+            "Content-Type": "application/json"
+        }
       });
     } catch (err) {
       console.warn("Erreur logout backend", err);

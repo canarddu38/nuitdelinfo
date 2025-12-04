@@ -6,7 +6,7 @@
 /*   By: sservant <sservant@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 19:40:00 by sservant          #+#    #+#             */
-/*   Updated: 2025/12/04 21:10:59 by sservant         ###   ########lyon.fr   */
+/*   Updated: 2025/12/04 21:19:18 by sservant         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ export default function Register() {
     e.preventDefault();
     if (password != confirmPassword) return;
     const ok = await register(username, password);
-    if (ok) navigate("/");
+    if (ok) navigate("/login");
   };
 
   return (
