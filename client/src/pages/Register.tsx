@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Login.tsx                                          :+:      :+:    :+:   */
+/*   Register.tsx                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sservant <sservant@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 18:45:00 by sservant          #+#    #+#             */
-/*   Updated: 2025/12/04 20:57:23 by sservant         ###   ########lyon.fr   */
+/*   Created: 2025/12/04 19:40:00 by sservant          #+#    #+#             */
+/*   Updated: 2025/12/04 20:56:16 by sservant         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/auth/AuthContext";
 import ColorBends from '../components/utils/ColorBends';
 import ShinyText from '../components/utils/ShinyText';
 import TextPressure from '../components/utils/TextPressure';
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
-  const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login attempt:", { username, password });
-    const ok = await login(username, password);
-    if (ok) navigate("/");
+    console.log("Register attempt:", { username, password, confirmPassword });
+    if (password != confirmPassword) return;
+
+    navigate('/login');
   };
 
   return (
@@ -52,7 +52,7 @@ export default function Login() {
         {/* Title */}
         <div className="mb-8 sm:mb-12 w-full max-w-4xl text-center">
              <TextPressure
-              text="Connexion"
+              text="Inscription"
               flex={true}
               alpha={false}
               stroke={false}
@@ -66,7 +66,7 @@ export default function Login() {
             />
         </div>
 
-        {/* Login Form Card */}
+        {/* Register Form Card */}
         <div
             className="relative rounded-2xl p-6 sm:p-8 w-full max-w-md shadow-2xl"
             style={{
@@ -75,14 +75,29 @@ export default function Login() {
               border: '1px solid rgba(255, 255, 255, 0.1)',
             }}
           >
-            <form onSubmit={handleLogin} className="flex flex-col gap-6">
+            <form onSubmit={handleRegister} className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
                     <label className="text-white/70 text-sm ml-1 font-light">Identifiant</label>
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Entrez votre identifiant"
+                        placeholder="Choisissez un identifiant"
+                        style={{
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        }}
+                        className="w-full px-4 py-3 rounded-lg outline-none text-white placeholder-white/40 transition-all hover:border-white/20 focus:border-[#46D93B]/50 focus:shadow-lg focus:shadow-[#46D93B]/10"
+                    />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label className="text-white/70 text-sm ml-1 font-light">Mot de passe</label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Choisissez un mot de passe"
                         style={{
                         background: 'rgba(255, 255, 255, 0.05)',
                         backdropFilter: 'blur(10px)',
@@ -93,12 +108,12 @@ export default function Login() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <label className="text-white/70 text-sm ml-1 font-light">Mot de passe</label>
+                    <label className="text-white/70 text-sm ml-1 font-light">Confirmer le mot de passe</label>
                     <input
                         type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Entrez votre mot de passe"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="Confirmez votre mot de passe"
                         style={{
                         background: 'rgba(255, 255, 255, 0.05)',
                         backdropFilter: 'blur(10px)',
@@ -118,7 +133,7 @@ export default function Login() {
                   }}
                 >
                   <ShinyText
-                    text="Se connecter"
+                    text="S'inscrire"
                     disabled={false}
                     speed={3}
                   />
@@ -127,7 +142,7 @@ export default function Login() {
             
             <div className="mt-6 text-center">
                 <p className="text-white/40 text-sm">
-                    Pas encore de compte ? <span className="text-[#46D93B] cursor-pointer hover:underline" onClick={() => navigate('/register')}>S'inscrire</span>
+                    Déjà un compte ? <span className="text-[#46D93B] cursor-pointer hover:underline" onClick={() => navigate('/login')}>Se connecter</span>
                 </p>
             </div>
         </div>

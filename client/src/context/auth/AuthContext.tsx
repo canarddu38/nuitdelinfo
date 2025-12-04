@@ -12,7 +12,8 @@ interface User {
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  login: () => Promise<boolean>;
+  login: (username: string, password: string) => Promise<boolean>;
+  register: (username: string, password: string) => Promise<boolean>;
   logout: () => Promise<void>;
 }
 
@@ -61,8 +62,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     checkUser();
   }, []);
 
-  const login = async () => {
+  const login = async (username: string, password: string) => {
     window.location.href=import.meta.env.VITE_AUTH42;
+    return false;
+  };
+
+  const register = async (username: string, password: string) => {
+      try {
+        const res = await fetch(`/api/register`, {
+          method: "POST",
+          credentials: "include",
+            headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({username: username, password: password})
+        });
+        
+        if (res.ok) {
+          const data = await res.json();
+          const tokenFromCookie = getCookie("token") || "";
+          if (data && typeof data === "object") {
+            setUser({
+              token: tokenFromCookie,
+              name: (data as any).name,
+              campus: (data as any).campus,
+              picture: (data as any).picture,
+              username: (data as any).username,
+            });
+          }
+      } 
+    } catch (err) {
+        console.log("Utilisateur non connecté", err);
+      }
     return false;
   };
 
@@ -83,7 +114,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
