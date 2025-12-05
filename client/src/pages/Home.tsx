@@ -6,7 +6,7 @@
 /*   By: sservant <sservant@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 13:34:25 by sservant          #+#    #+#             */
-/*   Updated: 2025/12/05 07:37:18 by sservant         ###   ########lyon.fr   */
+/*   Updated: 2025/12/05 08:28:35 by sservant         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ export default function Home() {
   const [jamCode, setJamCode] = useState("");
 
 
-
+  const showSource = async () => {
+    const url = 'https://github.com/canarddu38/nuitdelinfo/';
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <div className="relative w-full min-h-screen overflow-x-hidden bg-[#0a0a0a]">
@@ -100,6 +103,13 @@ export default function Home() {
         {/* Footer */}
         <div className="px-4 sm:px-6 md:px-8 py-6 sm:py-8 border-t border-white/10 text-center text-white/40 text-xs sm:text-sm">
           <p>&copy; 2025 O.N. All rights reserved.</p>
+              <div className="cursor-pointer" onClick={showSource}>
+                <ShinyText
+                text="Code source (github)"
+                disabled={false}
+                speed={3}
+              />
+              </div>
         </div>
       </div>
     </div>
