@@ -6,7 +6,7 @@
 /*   By: sservant <sservant@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 13:34:25 by sservant          #+#    #+#             */
-/*   Updated: 2025/12/04 19:36:38 by sservant         ###   ########lyon.fr   */
+/*   Updated: 2025/12/05 07:37:18 by sservant         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ export default function Home() {
         </div>
         {/* Footer */}
         <div className="px-4 sm:px-6 md:px-8 py-6 sm:py-8 border-t border-white/10 text-center text-white/40 text-xs sm:text-sm">
-          <p>&copy; 2025 NIRD. All rights reserved.</p>
+          <p>&copy; 2025 O.N. All rights reserved.</p>
         </div>
       </div>
     </div>

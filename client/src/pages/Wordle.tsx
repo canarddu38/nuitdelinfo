@@ -213,7 +213,7 @@ useEffect(() => {
                 return (
                   <div 
                     key={col} 
-                    className={`w-[clamp(40px,10vw,60px)] h-[clamp(40px,10vw,60px)] border flex items-center justify-center font-bold text-xl sm:text-2xl rounded-xl transition-all duration-300 ${statusClass[status]}`}
+                    className={`w-[clamp(40px,10vw,60px)] h-[clamp(40px,10vw,60px)] border flex items-center text-white justify-center font-bold text-xl sm:text-2xl rounded-xl transition-all duration-300 ${statusClass[status]}`}
                     style={{ backdropFilter: 'blur(5px)' }}
                   >
                     {getLetterAtPosition(row, col)}
