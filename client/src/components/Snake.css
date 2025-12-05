@@ -1,0 +1,209 @@
+
+logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.board {
+  display: grid;
+  gap: 0;
+  width: fit-content;
+  background: #001f3f;
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  box-sizing: border-box;
+  background-image: url('./floor.svg');
+  background-repeat: repeat;
+  background-size: var(--cell-size) var(--cell-size);
+
+}
+
+.cell.snake {
+  background-image: url('./body.svg');
+  background-repeat: repeat;
+  background-size: var(--cell-size) var(--cell-size);
+}
+
+.cell.snake-head {
+  background-image: url('./head.svg');
+  background-repeat: repeat;
+  background-size: var(--cell-size) var(--cell-size);
+  transform-origin: center;
+  will-change: transform;
+  transition: none;
+}
+
+.cell.snake-head.rotating {
+  transition: transform 60ms linear;
+}
+
+.cell.snake-head.head-top {
+  transform: rotate(0deg);
+}
+
+.cell.snake-head.head-right {
+  transform: rotate(90deg);
+}
+
+.cell.snake-head.head-bot {
+  transform: rotate(180deg);
+}
+
+.cell.snake-head.head-left {
+  transform: rotate(-90deg);
+}
+
+
+.cell.snake-bonus {
+  background-image: url('./windobe.svg');
+  background-repeat: repeat;
+  background-size: var(--cell-size) var(--cell-size);
+  animation: pulse 800ms ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(26, 26, 46, 1);
+  }
+
+  to {
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(42, 107, 187, 0.769);
+  }
+}
+
+.level-1 .cell {
+  background-image: url('/level_1/floor.svg');
+}
+
+.level-1 .cell.snake {
+  background-image: url('/level_1/body.svg');
+}
+
+.level-1 .cell.snake-head {
+  background-image: url('/level_1/head.svg');
+}
+
+.level-1 .cell.snake-bonus {
+  background-image: url('/level_1/bonus.svg');
+}
+
+/* Level 2 */
+.level-2 .cell {
+  background-image: url('/level_2/floor.svg');
+}
+
+.level-2 .cell.snake {
+  background-image: url('/level_2/body.svg');
+}
+
+.level-2 .cell.snake-head {
+  background-image: url('/level_2/head.svg');
+}
+
+.level-2 .cell.snake-bonus {
+  background-image: url('/level_2/bonus.svg');
+}
+
+/* Level 3 */
+.level-3 .cell {
+  background-image: url('/level_3/floor.svg');
+}
+
+.level-3 .cell.snake {
+  background-image: url('/level_3/body.svg');
+}
+
+.level-3 .cell.snake-head {
+  background-image: url('/level_3/head.svg');
+}
+
+.level-3 .cell.snake-bonus {
+  background-image: url('/level_3/bonus.svg');
+}
+
+:root {
+  --columns: 15;
+  --rows: 10;
+  --cell-size: clamp(16px,
+      min(calc((100vw - 24px) / var(--columns)),
+        calc((100vh - 140px) / var(--rows))
+      ),
+      64px
+    );
+}
+
+.game-board {
+  width: calc(var(--cell-size) * var(--columns));
+  max-width: 100%;
+  margin: 0 auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  display: block;
+  padding: 8px 0;
+}
+
+@media (max-width: 360px) {
+  :root {
+    --cell-size: clamp(12px,
+        min(calc((100vw - 16px) / var(--columns)),
+          calc((100vh - 120px) / var(--rows))),
+        44px);
+  }
+}
+
+.board-row {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  margin-bottom: 0.25rem;
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
+}
+
+div.score {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+  text-align: center;
+}
