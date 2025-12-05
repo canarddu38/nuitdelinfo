@@ -1,4 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import ColorBends from '../components/utils/ColorBends';
+import TextPressure from '../components/utils/TextPressure';
+import ShinyText from '../components/utils/ShinyText';
 
 type Question = { id: number; prompt: string; choices: string[]; answerIndex: number }
 
@@ -83,6 +87,7 @@ const QUESTIONS: Question[] = [
 ]
 
 export default function Quiz() {
+    const navigate = useNavigate()
 	const [idx, setIdx] = useState(0)
 	const [selected, setSelected] = useState<number | null>(null)
 	const [locked, setLocked] = useState(false)
@@ -137,67 +142,137 @@ export default function Quiz() {
 	}, [idx, finished, q.choices.length])
 
 	const statusClass = (i: number) => {
-		if (!locked) return 'bg-white/20 border-white/40 text-white'
-		if (i === q.answerIndex) return 'bg-green-500 border-green-500 text-white'
-		if (selected === i) return 'bg-red-500 border-red-500 text-white'
-		return 'bg-white/20 border-white/40 text-white'
+		if (!locked) return 'bg-white/5 border-white/10 text-white hover:bg-white/10'
+		if (i === q.answerIndex) return 'bg-[#46D93B]/20 border-[#46D93B] text-[#46D93B]'
+		if (selected === i) return 'bg-red-500/20 border-red-500 text-red-500'
+		return 'bg-white/5 border-white/10 text-white/50'
 	}
 
 	return (
-		<div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-500 to-indigo-500 text-white p-5">
-			<h1 className="text-4xl sm:text-5xl font-bold mb-8 drop-shadow-md">Quiz</h1>
-
-			<div className="flex gap-6 mb-5 text-center text-lg sm:text-xl">
-				<span>
-					Question {idx + 1} / {QUESTIONS.length}
-				</span>
-				<span>
-					Score: <span className="font-bold text-yellow-400">{score}</span>
-				</span>
+		<div className="relative w-full min-h-screen overflow-x-hidden bg-[#0a0a0a]">
+			{/* Background Animation */}
+			<div className="absolute inset-0 z-0">
+				<ColorBends
+					colors={["#1D6618", "#46D93B", "#00ffd1"]}
+					rotation={0}
+					speed={0.2}
+					scale={0.5}
+					frequency={0.8}
+					warpStrength={1.0}
+					mouseInfluence={1.0}
+					parallax={0.6}
+					noise={0.1}
+				/>
 			</div>
 
-			<div className="p-5 rounded-xl text-center max-w-[90vw] mb-5 bg-black/25 border border-white/25 animate-slide-in">
-				<p className="text-xl sm:text-2xl font-bold">{q.prompt}</p>
-			</div>
+			<div className="relative z-10 w-full min-h-screen flex flex-col items-center justify-center px-4 py-8">
+				<div className="mb-8 w-full max-w-4xl text-center">
+					<TextPressure
+						text="Quiz"
+						flex={true}
+						alpha={false}
+						stroke={false}
+						width={true}
+						weight={false}
+						italic={true}
+						textColor="#ffffff"
+						strokeColor="#ff0000"
+						className="text-center w-full"
+						minFontSize={36}
+					/>
+				</div>
 
-			<div className="w-full max-w-[700px] flex flex-col gap-2.5 mb-5">
-				{q.choices.map((c, i) => (
-					<button
-						key={i}
-						className={`px-4 py-2 rounded-md border font-bold text-left transition ${statusClass(i)}`}
-						onClick={() => choose(i)}
-						disabled={locked}
-					>
-						<span className="mr-2 font-bold">{String.fromCharCode(65 + i)}.</span> {c}
-					</button>
-				))}
-			</div>
+				<div className="flex gap-6 mb-5 text-center text-lg sm:text-xl text-white">
+					<span>
+						Question {idx + 1} / {QUESTIONS.length}
+					</span>
+					<span>
+						Score: <span className="font-bold text-[#46D93B]">{score}</span>
+					</span>
+				</div>
 
-			<div className="w-full max-w-[700px] flex gap-2 justify-center flex-wrap">
-				<button
-					className="px-4 py-2 min-w-[100px] rounded-md bg-indigo-400/30 border border-indigo-600/60"
-					onClick={prev}
-					disabled={idx === 0}
+				<div 
+					className="p-6 rounded-2xl text-center w-full max-w-2xl mb-5 shadow-2xl"
+					style={{
+						background: 'rgba(255, 255, 255, 0.05)',
+						backdropFilter: 'blur(10px)',
+						border: '1px solid rgba(255, 255, 255, 0.1)',
+					}}
 				>
-					← Précédent
-				</button>
-				{!finished && (
+					<p className="text-xl sm:text-2xl font-bold text-white">{q.prompt}</p>
+				</div>
+
+				<div className="w-full max-w-2xl flex flex-col gap-3 mb-8">
+					{q.choices.map((c, i) => (
+						<button
+							key={i}
+							className={`px-6 py-4 rounded-xl border font-medium text-left transition-all ${statusClass(i)}`}
+							style={{
+								backdropFilter: 'blur(5px)',
+							}}
+							onClick={() => choose(i)}
+							disabled={locked}
+						>
+							<span className="mr-2 font-bold opacity-50">{String.fromCharCode(65 + i)}.</span> {c}
+						</button>
+					))}
+				</div>
+
+				<div className="w-full max-w-2xl flex gap-4 justify-center flex-wrap">
 					<button
-						className="px-4 py-2 min-w-[100px] rounded-md bg-indigo-400/30 border border-indigo-600/60"
-						onClick={next}
-						disabled={!locked}
+						className="cursor-pointer transition-transform duration-300 hover:scale-105 text-white px-6 py-3 rounded-[50px] font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+						style={{
+							background: 'rgba(255, 255, 255, 0.05)',
+							backdropFilter: 'blur(10px)',
+							border: '1px solid rgba(255, 255, 255, 0.1)',
+						}}
+						onClick={prev}
+						disabled={idx === 0}
 					>
-						Suivant →
+						← Précédent
 					</button>
-				)}
-				{finished && (
-					<button
-						className="px-4 py-2 min-w-[100px] rounded-md bg-indigo-400/30 border border-indigo-600/60"
-						onClick={restart}
-					>
-						Rejouer
-					</button>
-				)}
+					{!finished && (
+						<button
+							className="cursor-pointer transition-transform duration-300 hover:scale-105 text-white px-6 py-3 rounded-[50px] font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+							style={{
+								background: 'rgba(0, 207, 0, 0.05)',
+								backdropFilter: 'blur(10px)',
+								border: '1px solid rgba(0, 207, 0, 0.3)',
+							}}
+							onClick={next}
+							disabled={!locked}
+						>
+							<ShinyText text="Suivant →" disabled={false} speed={3} />
+						</button>
+					)}
+					{finished && (
+						<button
+							className="cursor-pointer transition-transform duration-300 hover:scale-105 text-white px-6 py-3 rounded-[50px] font-medium"
+							style={{
+								background: 'rgba(0, 207, 0, 0.05)',
+								backdropFilter: 'blur(10px)',
+								border: '1px solid rgba(0, 207, 0, 0.3)',
+							}}
+							onClick={restart}
+						>
+							<ShinyText text="Rejouer" disabled={false} speed={3} />
+						</button>
+					)}
+				</div>
+
+                <div className="mt-8">
+                    <button 
+                        className="cursor-pointer transition-transform duration-300 hover:scale-105 text-white px-6 py-3 rounded-[50px] font-medium"
+                        style={{
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            backdropFilter: 'blur(10px)',
+                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                        }}
+                        onClick={() => navigate(-1)}
+                    >
+                        Retour
+                    </button>
+                </div>
 			</div>
 		</div>
 	)

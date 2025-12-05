@@ -1,0 +1,29 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  
+  <defs>
+    <filter id="cyanGlowItem" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#cyanGlowItem)">
+      
+      <circle cx="32" cy="32" r="28" 
+              fill="none" 
+              stroke="#0ff" stroke-width="1" stroke-dasharray="5,3" opacity="0.7"/>
+
+      <g fill="#0ff" fill-opacity="0.4" stroke="#0ff" stroke-width="2">
+          <rect x="14" y="14" width="16" height="16" rx="1"/>
+          <rect x="34" y="14" width="16" height="16" rx="1"/>
+          <rect x="14" y="34" width="16" height="16" rx="1"/>
+          <rect x="34" y="34" width="16" height="16" rx="1"/>
+      </g>
+      
+      <circle cx="32" cy="32" r="2" fill="#fff" opacity="0.9"/>
+      
+  </g>
+</svg>

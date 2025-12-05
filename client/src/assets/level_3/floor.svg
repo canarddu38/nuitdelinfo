@@ -1,0 +1,22 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="techGridF" width="8" height="8" patternUnits="userSpaceOnUse">
+        <rect width="8" height="8" fill="#05050a"/>
+        <path d="M 8 0 L 0 0 0 8" fill="none" stroke="#101020" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <rect width="64" height="64" fill="url(#techGridF)"/>
+
+  <rect x="0.5" y="0.5" width="63" height="63" fill="none" stroke="#1a1a3a" stroke-width="1"/>
+
+  <g fill="#2a2a4a" opacity="0.5">
+      <circle cx="4" cy="4" r="2"/>
+      <circle cx="60" cy="4" r="2"/>
+      <circle cx="4" cy="60" r="2"/>
+      <circle cx="60" cy="60" r="2"/>
+  </g>
+  
+  <path d="M 0 32 H 64 M 32 0 V 64" stroke="#101020" stroke-width="2" opacity="0.3"/>
+
+</svg>
