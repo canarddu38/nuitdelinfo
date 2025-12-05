@@ -8,6 +8,9 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import Relword from "../pages/Relword";
+import Wordle from "../pages/Wordle";
+import Quiz from "../pages/Quiz";
+import LinuxInstaller from "../pages/LinuxInstaller";
 
 export default function App() {
   return (
@@ -26,6 +29,9 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/rel" element={<Relword />} />
+			<Route path="/wordle" element={<Wordle />} />
+			<Route path="/quiz" element={<Quiz />} />
+			<Route path="/linux" element={<LinuxInstaller />} />
           </Routes>
         </BrowserRouter>
     </AuthProvider>
