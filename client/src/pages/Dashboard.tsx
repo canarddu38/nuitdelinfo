@@ -6,12 +6,29 @@ import TextPressure from '../components/utils/TextPressure';
 import Relworld from 'assets/relword_logo.png'
 import Wordle from 'assets/wordle_logo.png'
 import Quiz from 'assets/quizz_logo.png'
+import Memory from 'assets/Memory_logo.png'
+import linux from 'assets/linux_logo.png'
+import reco from 'assets/reco_logo.png'
 
 export default function Dashboad() {
     const navigate = useNavigate();
-  function handleClick () {
-    console.log("Clicked"); 
-    navigate("../login");
+  function handleClick_rel () { 
+    navigate("../rel");
+  }
+  function handleClick_word () { 
+    navigate("../wordle");
+  }
+  function handleClick_quiz () {
+    navigate("../quiz");
+  }
+  function handleClick_memo () { 
+    navigate("../Memo");
+  }
+  function handleClick_linux () { 
+    navigate("../linux");
+  }
+  function handleClick_reco () {
+    navigate("../reco");
   }
   return (
     <div style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
@@ -49,7 +66,7 @@ export default function Dashboad() {
         </div>
         <div className="w-full grid grid-cols-3 gap-4 h-[300px]">
           <div
-              className="relative rounded-2xl p-6 sm:p-8 w-full h-200 shadow-2xl scaleBox cursor-pointer" onClick={handleClick}
+              className="relative rounded-2xl p-6 sm:p-8 w-full h-200 shadow-2xl scaleBox cursor-pointer" onClick={handleClick_rel}
               style={{
                 background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -65,7 +82,7 @@ export default function Dashboad() {
               <p className="text-xl font-semibold mb-3 text-gray-400"> Dans ce jeu, il faut relier chaque application propriétaire à son équivalent open source. Cela permet de découvrir des alternatives libres, plus transparentes et respectueuses de la vie privée. Un jeu simple pour apprendre à remplacer des outils fermés par des solutions ouvertes.</p>
           </div>
           <div
-              className="relative rounded-2xl p-6 sm:p-8 w-full h-200 shadow-2xl scaleBox cursor-pointer" onClick={handleClick}
+              className="relative rounded-2xl p-6 sm:p-8 w-full h-200 shadow-2xl scaleBox cursor-pointer" onClick={handleClick_word}
               style={{
                 background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -81,7 +98,7 @@ export default function Dashboad() {
               <p className="text-xl font-semibold mb-3 text-gray-400"> Wordle est un jeu où tu dois deviner un mot secret en quelques essais. Les couleurs t’aident : vert si la lettre est bien placée, jaune si elle est dans le mot, gris si elle n’y est pas. Un petit jeu rapide et logique.</p>
           </div>
           <div
-              className="relative rounded-2xl p-6 sm:p-8 w-full h-200 shadow-2xl scaleBox cursor-pointer" onClick={handleClick}
+              className="relative rounded-2xl p-6 sm:p-8 w-full h-200 shadow-2xl scaleBox cursor-pointer" onClick={handleClick_quiz}
               style={{
                 background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -97,7 +114,7 @@ export default function Dashboad() {
               <p className="text-xl font-semibold mb-3 text-gray-400"> Wordle est un jeu où tu dois deviner un mot secret en quelques essais. Les couleurs t’aident : vert si la lettre est bien placée, jaune si elle est dans le mot, gris si elle n’y est pas. Un petit jeu rapide et logique.</p>
           </div>
           <div
-              className="relative rounded-2xl p-6 sm:p-8 w-full h-200 shadow-2xl scaleBox cursor-pointer" onClick={handleClick}
+              className="relative rounded-2xl p-6 sm:p-8 w-full h-200 shadow-2xl scaleBox cursor-pointer" onClick={handleClick_memo}
               style={{
                 background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -105,7 +122,7 @@ export default function Dashboad() {
             >
             <div className="flex justify-center p-4 h-[300px]">
               <img 
-                src={Relworld} // Utilisez la variable importée 
+                src={Memory} // Utilisez la variable importée 
                 className="**w-full h-auto md:w-960 rounded-lg shadow-xl**" // Classes Tailwind pour le style
                 />
           </div> 
@@ -113,7 +130,7 @@ export default function Dashboad() {
               <p className="text-xl font-semibold mb-3 text-gray-400">Dans ce memory, tu dois retrouver les paires en retournant deux cartes à la fois. Observe bien, mémorise les positions et retrouve toutes les correspondances le plus vite possible. Un jeu simple et amusant pour tester ta mémoire.</p>
           </div>
           <div
-              className="relative rounded-2xl p-6 sm:p-8 w-full h-200 shadow-2xl scaleBox cursor-pointer" onClick={handleClick}
+              className="relative rounded-2xl p-6 sm:p-8 w-full h-200 shadow-2xl scaleBox cursor-pointer" onClick={handleClick_linux}
               style={{
                 background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -121,15 +138,15 @@ export default function Dashboad() {
             >
             <div className="flex justify-center p-4 h-[300px]">
               <img 
-                src={Relworld} // Utilisez la variable importée 
+                src={linux} // Utilisez la variable importée 
                 className="**w-full h-auto md:w-960 rounded-lg shadow-xl**" // Classes Tailwind pour le style
                 />
           </div> 
-              <h1 className="text-6xl font-semibold mb-3 text-white">RELWORD</h1>
-              <p className="text-xl font-semibold mb-3 text-gray-400"> Dans ce jeu, le joueur doit relier chaque application propriétaire (non–open source) avec son équivalent open source. L’objectif est de montrer qu’à presque chaque logiciel fermé existe une alternative libre, transparente et souvent plus respectueuse de la vie privée. En associant ces paires, le joueur découvre l’écosystème du logiciel libre et apprend à reconnaître des solutions ouvertes qui peuvent remplacer des outils populaires mais fermés. C’est un jeu simple, éducatif et idéal pour sensibiliser aux avantages du logiciel libre.</p>
+              <h1 className="text-6xl font-semibold mb-3 text-white">Linux installer</h1>
+              <p className="text-xl font-semibold mb-3 text-gray-400"> Cette activité te fait suivre les étapes d’installation d’une distribution Linux : choisir la version, configurer le disque, créer un utilisateur et lancer l’installation. Un moyen simple de découvrir comment mettre en place un système Linux.</p>
           </div>
           <div
-              className="relative rounded-2xl p-6 sm:p-8 w-full h-200 shadow-2xl scaleBox cursor-pointer" onClick={handleClick}
+              className="relative rounded-2xl p-6 sm:p-8 w-full h-200 shadow-2xl scaleBox cursor-pointer" onClick={handleClick_reco}
               style={{
                 background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -137,12 +154,12 @@ export default function Dashboad() {
             >
             <div className="flex justify-center p-4 h-[300px]">
               <img 
-                src={Relworld} // Utilisez la variable importée 
+                src={reco} // Utilisez la variable importée 
                 className="**w-full h-auto md:w-960 rounded-lg shadow-xl**" // Classes Tailwind pour le style
                 />
           </div> 
-              <h1 className="text-6xl font-semibold mb-3 text-white">RELWORD</h1>
-              <p className="text-xl font-semibold mb-3 text-gray-400"> Dans ce jeu, le joueur doit relier chaque application propriétaire (non–open source) avec son équivalent open source. L’objectif est de montrer qu’à presque chaque logiciel fermé existe une alternative libre, transparente et souvent plus respectueuse de la vie privée. En associant ces paires, le joueur découvre l’écosystème du logiciel libre et apprend à reconnaître des solutions ouvertes qui peuvent remplacer des outils populaires mais fermés. C’est un jeu simple, éducatif et idéal pour sensibiliser aux avantages du logiciel libre.</p>
+              <h1 className="text-6xl font-semibold mb-3 text-white">RECO</h1>
+              <p className="text-xl font-semibold mb-3 text-gray-400"> Dans ce jeu, tu apprends à redonner vie à un vieux PC : nettoyer les composants, changer les pièces essentielles, installer un système léger et optimiser les performances. Une manière ludique de comprendre comment reconditionner et prolonger la durée de vie d’un ordinateur.</p>
           </div>
         </div>
       </div>
