@@ -24,9 +24,31 @@ db.prepare(`
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		username TEXT UNIQUE,
 		password TEXT,
-		token TEXT
+		token TEXT,
+		xp INT
 	)
 `).run();
+
+app.post("/api/addxp", (req, res) => {
+	const token = req.cookies.token;
+	const { amount }  = req.body;
+	try {
+		const data = jwt.decode(token, { complete: true }).payload;
+		db.prepare("UPDATE users SET xp = xp + ? WHERE username = ?").run(amount, data.username) // /!\ critical vulnerability /!\
+		return res.status(200).json({ success: true });
+	} catch {
+		return res.status(401).json({ success: false });
+	}
+});
+
+app.post("/api/logout", (req, res) => {
+	res.clearCookie('token', {
+        httpOnly: true,
+		secure: false,
+		sameSite: "lax"
+    });
+	return res.json({ success: true });
+});
 
 app.post("/api/login", (req, res) => {
 	const { username, password } = req.body;
@@ -53,7 +75,7 @@ app.post("/api/register", (req, res) => {
 	const hash = crypto.createHash("sha256").update(password).digest("base64");
 	const payload = { username: username };
 	const token = jwt.sign(payload, secret, { expiresIn: "20m" });
-	db.prepare("INSERT INTO users (username, password, token) VALUES (?, ?, ?)").run(username, hash, token);
+	db.prepare("INSERT INTO users (username, password, token, xp) VALUES (?, ?, ?, 0)").run(username, hash, token);
 	return res.json({ success: true });
 });
 
@@ -61,8 +83,10 @@ app.get("/api/me", (req, res) => {
 	const token = req.cookies.token;
 	try {
 		const data = jwt.decode(token, { complete: true }).payload;
-		const user = db.prepare("SELECT * FROM users WHERE username = ?").all(data.username) // /!\ critial vulnerability /!\
-		return res.json({ success: true, user: {username: user[0].username, id: user[0].id} });
+		const user = db.prepare("SELECT * FROM users WHERE username = ?").all(data.username) // /!\ critical vulnerability /!\
+		return res.json({ success: true, user: {
+				username: user[0].username, id: user[0].id, xp: user[0].xp
+		}});
 	} catch {
 		return res.status(401).json({ success: false });
 	}
