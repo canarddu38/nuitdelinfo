@@ -8,12 +8,43 @@ type Step = {
 }
 
 const STEPS: Step[] = [
-  { id: 1, title: 'Vérifier le disque', desc: "S'assurer que le disque est visible (ex: /dev/sda).", hint: 'lsblk' },
-  { id: 2, title: 'Partitionner (simulé)', desc: 'Créer une partition Linux.', hint: 'parted /dev/sda mkpart primary ext4 1MiB 100%' },
-  { id: 3, title: 'Formater & monter', desc: 'Formater la partition et la monter.', hint: 'mkfs.ext4 /dev/sda1 && mount /mnt' },
-  { id: 4, title: 'Installer le système', desc: 'Copier les fichiers de base.', hint: 'install-base' },
-  { id: 5, title: 'Configurer utilisateur & boot', desc: 'Créer utilisateur + installer GRUB.', hint: 'useradd demo && grub-install /dev/sda' },
-  { id: 6, title: 'Redémarrer', desc: 'Redémarrer le système.', hint: 'reboot' },
+  {
+    id: 1,
+    title: "Télécharger l'ISO",
+    desc: "Télécharger l'image ISO de la distribution Linux souhaitée.",
+    hint: "wget https://example.com/linux.iso"
+  },
+  {
+    id: 2,
+    title: "Créer la clé USB bootable",
+    desc: "Flasher l'ISO sur une clé USB avec un outil comme Rufus ou balenaEtcher.",
+    hint: "balena-etcher linux.iso /dev/sdb"
+  },
+  {
+    id: 3,
+    title: "Démarrer sur la clé",
+    desc: "Redémarrer le PC et booter sur la clé USB via le menu de boot.",
+    hint: "F12 / F8 / ESC selon le fabricant"
+  },
+  {
+    id: 4,
+    title: "Lancer l'installation",
+    desc: "Choisir 'Install Linux' depuis le menu de démarrage.",
+    hint: "Start Installer"
+  },
+  {
+    id: 5,
+    title: "Installer Linux",
+    desc: "Choisir la langue, le clavier, le disque et lancer la copie des fichiers.",
+    hint: "Installation en cours..."
+  },
+  {
+    id: 6,
+    title: "Premier démarrage",
+    desc: "Retirer la clé USB, redémarrer et accéder au bureau Linux.",
+    hint: "reboot"
+  }
+  
 ]
 
 export default function LinuxInstaller() {

@@ -11,6 +11,7 @@ import Relword from "../pages/Relword";
 import Wordle from "../pages/Wordle";
 import Quiz from "../pages/Quiz";
 import LinuxInstaller from "../pages/LinuxInstaller";
+import Memo from "../pages/Memo";
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
 			<Route path="/wordle" element={<Wordle />} />
 			<Route path="/quiz" element={<Quiz />} />
 			<Route path="/linux" element={<LinuxInstaller />} />
+			<Route path="/memo" element={<Memo />} />
           </Routes>
         </BrowserRouter>
     </AuthProvider>
