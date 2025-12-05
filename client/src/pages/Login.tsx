@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Login.tsx                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sservant <sservant@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbichet <mbichet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 18:45:00 by sservant          #+#    #+#             */
-/*   Updated: 2025/12/04 22:05:47 by sservant         ###   ########lyon.fr   */
+/*   Updated: 2025/12/05 01:55:10 by mbichet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ export default function Login() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const ok = await login(username, password);
-    if (ok) navigate("/dashboard");
+    if (ok) navigate("../dashboard");
   };
 
   return (

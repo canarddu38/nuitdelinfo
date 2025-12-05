@@ -73,4 +73,7 @@ body {
     @apply scale-105 border;
     background: #6e6e6ec5;
   }
+  .scaleBox:hover {
+       @apply scale-[1.01] border;
+  }
 }
