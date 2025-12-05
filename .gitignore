@@ -14,7 +14,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Environnements
-.env
 .env.local
 .env.development.local
 .env.test.local
